@@ -1,13 +1,27 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
 import GlobalStyles from "../GlobalStyles";
+import ArtistRoute from "../ArtistRoute";
+
+const DEFAULT_ARTIST_ID = "6rJ1GwtHin2BJbKLuNn9pi";
 
 const App = () => {
   return (
-    <>
+    <Router>
       <GlobalStyles />
-      <Router>TODO</Router>
-    </>
+      <Switch>
+        <Route path="/artist/:id">
+          <ArtistRoute />
+        </Route>
+        <Redirect to={`/artist/${DEFAULT_ARTIST_ID}`} />
+      </Switch>
+    </Router>
   );
 };
 
