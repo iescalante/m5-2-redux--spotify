@@ -1,8 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ArtistRoute = () => {
-  return <div>Hello There!</div>;
+  const accessToken = useSelector((state) => state.auth.token);
+  return accessToken;
 };
 
 export default ArtistRoute;
