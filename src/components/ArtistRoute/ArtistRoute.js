@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchArtistProfile } from "../../helpers/api-helpers";
@@ -11,6 +12,10 @@ import {
 
 import { getArtist, getArtistStatus } from "../../reducers/artist-reducer";
 import { getAccessToken } from "../../reducers/auth-reducer";
+
+import Header from "./Header";
+import Loader from "react-loader-spinner";
+import Tag from "./Tag";
 
 const getSpotifyData = () => {
   const dispatch = useDispatch();
@@ -39,12 +44,45 @@ const ArtistRoute = () => {
   const artistStatus = useSelector(getArtistStatus);
 
   getSpotifyData();
-
+  if (artistStatus === "loading") {
+    return (
+      <DivLoader>
+        <Loader
+          style={{
+            height: "80px",
+            width: "80px",
+          }}
+        />
+      </DivLoader>
+    );
+  }
+  if (!artist) {
+    return "Error";
+  }
+  console.log(artist);
   return (
     <>
-      <pre>Hello</pre>
+      <Section>
+        <Header
+          imgSrc={artist.profile.images[1].url}
+          name={artist.profile.name}
+          followerTotal={artist.profile.followers.total}
+        />
+      </Section>
+      <Section>
+        <Tag genres={artist.profile.genres} />
+      </Section>
     </>
   );
 };
 
+const Section = styled.section`
+  margin-bottom: 64px;
+`;
+
+const DivLoader = styled.div`
+  display: grid;
+  place-content: center;
+  margin-top: 50vh;
+`;
 export default ArtistRoute;

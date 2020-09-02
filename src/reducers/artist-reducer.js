@@ -21,6 +21,7 @@ export default function artistReducer(state = initialState, action) {
 
         draftState.currentArtist.id = action.profile.id;
         draftState.currentArtist.profile = action.profile;
+        draftState.status = "idle";
       });
     }
     case "RECEIVE_ARTIST_INFO_ERROR": {
