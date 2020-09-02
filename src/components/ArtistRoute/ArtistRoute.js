@@ -1,31 +1,50 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchArtistProfile } from "../../helpers/api-helpers";
 
-const ArtistRoute = () => {
-  const accessToken = useSelector((state) => state.auth.token);
-  const artistId = useParams();
-  const currentArtist = useSelector((state) => state.currentArtist);
+import {
+  requestArtistInfo,
+  receiveArtistProfile,
+  receiveArtistInfoError,
+} from "../../actions";
+
+import { getArtist, getArtistStatus } from "../../reducers/artist-reducer";
+import { getAccessToken } from "../../reducers/auth-reducer";
+
+const getSpotifyData = () => {
+  const dispatch = useDispatch();
+  const accessToken = useSelector(getAccessToken);
+  const { artistId } = useParams();
 
   React.useEffect(() => {
     if (!accessToken) {
       return;
     }
-    fetchArtistProfile(accessToken, artistId);
-  }, [accessToken]);
+    dispatch(requestArtistInfo());
 
-  React.useEffect(() => {
-    if (!currentArtist) {
-      return;
-    }
+    fetchArtistProfile(accessToken, artistId)
+      .then((json) => {
+        dispatch(receiveArtistProfile(json));
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(receiveArtistInfoError(err));
+      });
+  }, [accessToken, artistId]);
+};
 
-    fetch(`https://api.spotify.com/v1/artists/${artistId}`)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, [currentArtist]);
+const ArtistRoute = () => {
+  const artist = useSelector(getArtist);
+  const artistStatus = useSelector(getArtistStatus);
 
-  return accessToken;
+  getSpotifyData();
+
+  return (
+    <>
+      <pre>Hello</pre>
+    </>
+  );
 };
 
 export default ArtistRoute;

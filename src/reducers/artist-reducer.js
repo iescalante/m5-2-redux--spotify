@@ -1,3 +1,5 @@
+import produce from "immer";
+
 const initialState = {
   currentArtist: null,
   status: "idle",
@@ -12,12 +14,14 @@ export default function artistReducer(state = initialState, action) {
       };
     }
     case "RECEIVE_ARTIST_INFO": {
-      return {
-        ...state,
-        currentArtist: {
-          profile: {},
-        },
-      };
+      return produce(state, (draftState) => {
+        if (!draftState.currentArtist) {
+          draftState.currentArtist = {};
+        }
+
+        draftState.currentArtist.id = action.profile.id;
+        draftState.currentArtist.profile = action.profile;
+      });
     }
     case "RECEIVE_ARTIST_INFO_ERROR": {
       return {
@@ -30,3 +34,6 @@ export default function artistReducer(state = initialState, action) {
     }
   }
 }
+
+export const getArtist = (state) => state.artists.currentArtist;
+export const getArtistStatus = (state) => state.artists.status;

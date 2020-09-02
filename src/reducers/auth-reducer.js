@@ -29,3 +29,5 @@ export default function authReducer(state = initialState, action) {
     }
   }
 }
+
+export const getAccessToken = (state) => state.auth.token;

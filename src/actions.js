@@ -15,9 +15,9 @@ export const requestArtistInfo = () => ({
   type: "REQUEST_ARTIST_INFO",
 });
 
-export const receiveArtistInfo = (artist) => ({
+export const receiveArtistProfile = (json) => ({
   type: "RECEIVE_ARTIST_INFO",
-  artist,
+  profile: json,
 });
 
 export const receiveArtistInfoError = () => ({

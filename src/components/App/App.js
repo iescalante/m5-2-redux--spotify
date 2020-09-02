@@ -40,7 +40,7 @@ const App = () => {
     <Router>
       <GlobalStyles />
       <Switch>
-        <Route path="/artist/:id">
+        <Route path="/artist/:artistId">
           <ArtistRoute />
         </Route>
         <Redirect to={`/artist/${DEFAULT_ARTIST_ID}`} />
