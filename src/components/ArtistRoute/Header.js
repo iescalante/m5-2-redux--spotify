@@ -26,11 +26,15 @@ const Image = styled.img`
 `;
 const Name = styled.h2`
   font-size: 78px;
+  font-weight: bold;
   text-align: center;
   margin-top: -79px;
+  text-shadow: 10px 4px 5px rgba(0, 0, 0, 0.75), 10px 4px 5px rgba(0, 0, 0, 0.5),
+    5px 15px 25px #000000;
 `;
 const Followers = styled.h3`
   margin-top: -50px;
+  font-weight: 600;
 `;
 const FollowerNum = styled.span`
   color: ${COLORS.primary};

@@ -23,6 +23,7 @@ const Wrapper = styled.div`
 `;
 const Title = styled.h2`
   padding-bottom: 24px;
+  font-weight: 600;
 `;
 const Genre = styled.span`
   flex-direction: space-between;
@@ -30,5 +31,6 @@ const Genre = styled.span`
   padding: 8px 20px;
   border-radius: 10px;
   margin-right: 30px;
+  font-weight: 600;
 `;
 export default Tag;
