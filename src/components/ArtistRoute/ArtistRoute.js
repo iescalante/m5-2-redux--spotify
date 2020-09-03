@@ -17,7 +17,7 @@ import Header from "./Header";
 import Loader from "react-loader-spinner";
 import Tag from "./Tag";
 
-const getSpotifyData = () => {
+const fetchSpotifyData = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector(getAccessToken);
   const { artistId } = useParams();
@@ -39,25 +39,27 @@ const getSpotifyData = () => {
   }, [accessToken, artistId]);
 };
 
-const ArtistRoute = () => {
+const ArtistPage = () => {
   const artist = useSelector(getArtist);
   const artistStatus = useSelector(getArtistStatus);
 
-  getSpotifyData();
+  fetchSpotifyData();
+
   if (artistStatus === "loading") {
     return (
       <DivLoader>
         <Loader
           style={{
-            height: "80px",
-            width: "80px",
+            height: "100px",
+            width: "100px",
           }}
         />
       </DivLoader>
     );
   }
+
   if (!artist) {
-    return "Error";
+    return "Loading...";
   }
   console.log(artist);
   return (
@@ -85,4 +87,4 @@ const DivLoader = styled.div`
   place-content: center;
   margin-top: 50vh;
 `;
-export default ArtistRoute;
+export default ArtistPage;

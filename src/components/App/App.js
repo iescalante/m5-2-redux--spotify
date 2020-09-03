@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import GlobalStyles from "../GlobalStyles";
-import ArtistRoute from "../ArtistRoute";
+import ArtistPage from "../ArtistRoute";
 import {
   requestAccessToken,
   receiveAccessToken,
@@ -41,7 +41,7 @@ const App = () => {
       <GlobalStyles />
       <Switch>
         <Route path="/artist/:artistId">
-          <ArtistRoute />
+          <ArtistPage />
         </Route>
         <Redirect to={`/artist/${DEFAULT_ARTIST_ID}`} />
       </Switch>
